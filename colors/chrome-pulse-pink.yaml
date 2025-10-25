@@ -1,0 +1,18 @@
+# ~/.local/share/chezmoi/dot_config/colorschemes/chrome-pulse-pink.yaml
+name: "chrome-pulse-pink"
+colors:
+  bg: "#0B0C10"
+  surface0: "#141518"
+  surface1: "#1E2024"
+  border: "#5A5A5C"
+  fg: "#D9D9D9"
+  fg_dim: "#A6A6A6"
+  fg_alt: "#F2F2F2"
+  accent: "#FF33CC"
+  accent_alt: "#FF66E0"
+  warning: "#FFD966"
+  error: "#FF3366"
+  success: "#99FFCC"
+  highlight: "#BFBFBF"
+  shadow: "#050506"
+

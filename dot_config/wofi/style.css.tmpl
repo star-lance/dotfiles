@@ -1,0 +1,109 @@
+{{- $c := include (joinPath .chezmoi.sourceDir "dot_config/colors/chrome-pulse-pink.yaml") | fromYaml -}}
+/* Wofi Chrome-Pulse-Pink theme
+   Generated via ChezMoi
+*/
+
+window {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  background: transparent; /* prevents rectangular base */
+  box-shadow: none;
+  border: 0px solid {{ $c.colors.border }};
+  border-radius: 12px;
+  color: {{ $c.colors.fg }};
+}
+
+#outer-box {
+    background-color: rgba(20, 20, 20, 0.95); /* main window bg */
+    border-radius: 14px;
+    padding: 10px;
+    overflow: hidden; /* hides all child overflow (important!) */
+    position: relative;
+}
+
+/* inner glow effect that respects rounded corners */
+#outer-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 25px 6px rgba(255, 105, 180, 0.5);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+#input {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background-color: {{ $c.colors.surface1 }};
+  border: 0px solid {{ $c.colors.border }};
+  border-radius: 8px;
+  color: {{ $c.colors.fg }};
+  caret-color: {{ $c.colors.accent }};
+  box-shadow: 0 0 6px {{ $c.colors.shadow }};
+}
+
+#input:focus {
+  outline: none;
+  border-color: {{ $c.colors.accent }};
+  box-shadow: 0 0 6{{ $c.colors.accent }};
+}
+
+#scroll {
+  margin-top: 4px;
+  background: none;
+}
+
+#entry {
+  padding: 6px 10px;
+  margin: 2px 0;
+  border-radius: 8px;
+  color: {{ $c.colors.fg_dim }};
+  background-color: transparent;
+  transition: all 0.1s ease-in-out;
+}
+
+#entry:selected {
+  background-color: {{ $c.colors.accent }};
+  color: {{ $c.colors.bg }};
+}
+
+#entry:hover {
+  background-color: {{ $c.colors.surface1 }};
+  color: {{ $c.colors.fg }};
+  box-shadow: inset 0 0 4px {{ $c.colors.accent_alt }};
+}
+
+#img {
+  margin-right: 8px;
+  opacity: 0.9;
+}
+
+#text {
+  font-weight: 500;
+}
+
+#text:selected {
+  color: {{ $c.colors.bg }};
+}
+
+/* optional faint scanline effect for the Y2K aesthetic */
+window::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+

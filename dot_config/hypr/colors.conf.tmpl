@@ -1,0 +1,26 @@
+{{- $colors := include "dot_config/colors/chrome-pulse-pink.yaml" | fromYaml -}}
+
+# Generated from {{$colors.name}}
+# Background colors
+$bg = rgb({{ trimPrefix "#" $colors.colors.bg }})
+$surface0 = rgb({{ trimPrefix "#" $colors.colors.surface0 }})
+$surface1 = rgb({{ trimPrefix "#" $colors.colors.surface1 }})
+$shadow = rgba({{ trimPrefix "#" $colors.colors.shadow }}ee)
+
+# Foreground colors
+$fg = rgb({{ trimPrefix "#" $colors.colors.fg }})
+$fg_dim = rgb({{ trimPrefix "#" $colors.colors.fg_dim }})
+$fg_alt = rgb({{ trimPrefix "#" $colors.colors.fg_alt }})
+
+# Accent colors
+$accent = rgba({{ trimPrefix "#" $colors.colors.accent }}ee)
+$accent_alt = rgba({{ trimPrefix "#" $colors.colors.accent_alt }}ee)
+
+# UI colors
+$border = rgba({{ trimPrefix "#" $colors.colors.border }}aa)
+$highlight = rgb({{ trimPrefix "#" $colors.colors.highlight }})
+
+# Status colors
+$warning = rgb({{ trimPrefix "#" $colors.colors.warning }})
+$error = rgb({{ trimPrefix "#" $colors.colors.error }})
+$success = rgb({{ trimPrefix "#" $colors.colors.success }})

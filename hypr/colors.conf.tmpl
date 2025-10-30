@@ -1,9 +1,0 @@
-{{- $colorschemeFile := printf "colors/%s.yaml" .colorscheme -}}
-{{- $colors := include $colorschemeFile | fromYaml -}}
-
-# Generated from {{$colors.name}}
-$bg = {{ $colors.colors.bg }}
-$fg = {{ $colors.colors.fg }}
-$accent = {{ $colors.colors.accent }}
-$border = {{ $colors.colors.border }}
-$highlight = {{ $colors.colors.highlight }}

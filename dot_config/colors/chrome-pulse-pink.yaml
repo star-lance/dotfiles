@@ -1,4 +1,4 @@
-# ~/.local/share/chezmoi/dot_config/colorschemes/chrome-pulse-pink.yaml
+# ~/.local/share/chezmoi/dot_config/colors/chrome-pulse-pink.yaml
 name: "chrome-pulse-pink"
 colors:
   bg: "#0B0C10"
@@ -15,4 +15,3 @@ colors:
   success: "#99FFCC"
   highlight: "#BFBFBF"
   shadow: "#050506"
-

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+sleep 1
+
+# Set your wallpaper path here
+WALLPAPER="$HOME/Pictures/shark.jpg"
+if [ ! -f "$WALLPAPER" ]; then
+    echo "Wallpaper not found: $WALLPAPER"
+    exit 1
+fi
+
+swww img "$WALLPAPER" \
+    --transition-type wipe \
+    --transition-duration 2 \
+    --transition-fps 60 \
+    --transition-angle 30
+
+echo "Wallpaper set successfully"

@@ -1,5 +1,5 @@
 # Chrome Pulse Pink - Y2K Retrofuturism Ranger Colorscheme
-# Templated by chezmoi from chrome-pulse-pink.yaml
+# Templated by chezmoi from chromepulse-pink.yaml
 # Inspired by: Akira, wireframe aesthetics, CRT displays, analog chrome, neon pink
 
 from __future__ import (absolute_import, division, print_function)
@@ -12,9 +12,9 @@ from ranger.gui.color import (
 # NOTE: This colorscheme uses 256-color terminal codes
 # Your terminal must support 256 colors for optimal display
 #
-# The hex colors from chrome-pulse-pink.yaml are mapped to 
+# The hex colors from chromepulsepink.yaml are mapped to 
 # the closest 256-color terminal equivalents:
-{{- $colors := .colors }}
+{{- $colors := .colors -}}
 {{- /* 
   Hex to 256-color mapping:
   {{ $colors.bg }}        -> 232  (deep black)
@@ -35,7 +35,7 @@ class ChromePulsePink(ColorScheme):
     """
     Y2K Retrofuturism aesthetic with chrome and neon pink accents.
     
-    Source colors from: chrome-pulse-pink.yaml
+    Source colors from: chromepulse-pink.yaml
     Applied via: chezmoi template system
     
     Aesthetic: Akira, wireframe, CRT, analog chrome, neon pink

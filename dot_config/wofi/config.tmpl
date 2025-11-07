@@ -1,11 +1,39 @@
 {{- $colors := include (joinPath .chezmoi.sourceDir "dot_config/colors/chrome-pulse-pink.yaml") | fromYaml -}}
+# Chrome Pulse Pink - Wofi Configuration
+# Y2K Retrofuturism Aesthetic
+# Templated by chezmoi
+
+# Core display settings
+width=600
+height=400
+location=center
 prompt=
-insensitive=true
-hide_scroll=true
 show=drun
 allow_images=true
 image_size=32
-allow_markup=true
-no_actions=false
-term=foot
 
+# Search behavior
+insensitive=true
+matching=fuzzy
+parse_search=false
+
+# UI behavior
+hide_scroll=true
+no_actions=false
+allow_markup=true
+gtk_dark=true
+dynamic_lines=false
+
+# Terminal (matches your Hyprland config)
+term=kitty
+
+# Layer and behavior
+layer=overlay
+normal_window=false
+
+# Performance
+cache_file=/tmp/wofi-drun
+
+# drun mode specific options
+drun-print_command=false
+drun-display_generic=false

@@ -1,0 +1,253 @@
+# Chrome Pulse Pink - Y2K Retrofuturism Ranger Colorscheme
+# Templated by chezmoi from chrome-pulse-pink.yaml
+# Inspired by: Akira, wireframe aesthetics, CRT displays, analog chrome, neon pink
+
+from __future__ import (absolute_import, division, print_function)
+
+from ranger.gui.colorscheme import ColorScheme
+from ranger.gui.color import (
+    default_colors, normal, bold, reverse, dim
+)
+
+# NOTE: This colorscheme uses 256-color terminal codes
+# Your terminal must support 256 colors for optimal display
+#
+# The hex colors from chrome-pulse-pink.yaml are mapped to 
+# the closest 256-color terminal equivalents:
+{{- $colors := .colors }}
+{{- /* 
+  Hex to 256-color mapping:
+  {{ $colors.bg }}        -> 232  (deep black)
+  {{ $colors.surface0 }}  -> 233  (slightly lighter)
+  {{ $colors.surface1 }}  -> 234  (selection surface)
+  {{ $colors.fg }}        -> 252  (chrome text)
+  {{ $colors.fg_dim }}    -> 248  (dimmed)
+  {{ $colors.fg_alt }}    -> 255  (brightest)
+  {{ $colors.accent }}    -> 200  (hot pink)
+  {{ $colors.accent_alt }} -> 212  (bright pink)
+  {{ $colors.warning }}   -> 221  (yellow)
+  {{ $colors.error }}     -> 203  (red)
+  {{ $colors.success }}   -> 121  (mint)
+  {{ $colors.border }}    -> 240  (wireframe)
+*/ -}}
+
+class ChromePulsePink(ColorScheme):
+    """
+    Y2K Retrofuturism aesthetic with chrome and neon pink accents.
+    
+    Source colors from: chrome-pulse-pink.yaml
+    Applied via: chezmoi template system
+    
+    Aesthetic: Akira, wireframe, CRT, analog chrome, neon pink
+    """
+    
+    # Progress bar in hot pink for that neon aesthetic
+    progress_bar_color = 200  # Maps to {{ $colors.accent }}
+    
+    def use(self, context):
+        """
+        Determines color scheme based on context.
+        Returns: (foreground, background, attribute) tuple
+        """
+        
+        # Color definitions (256-color codes mapped from YAML)
+        # Base colors
+        bg_void = 232          # {{ $colors.bg }} - Deep black void
+        surface0 = 233         # {{ $colors.surface0 }} - Slightly lighter
+        surface1 = 234         # {{ $colors.surface1 }} - Selection surface
+        
+        # Foreground/text colors  
+        fg_chrome = 252        # {{ $colors.fg }} - Main chrome text
+        fg_dim = 248           # {{ $colors.fg_dim }} - Dimmed text
+        fg_bright = 255        # {{ $colors.fg_alt }} - Brightest text
+        
+        # Accent colors - The neon palette
+        pink_neon = 200        # {{ $colors.accent }} - Hot pink accent
+        pink_bright = 212      # {{ $colors.accent_alt }} - Lighter pink
+        cyan_accent = 87       # Cyan wireframe (additional color)
+        
+        # Status colors
+        warning = 221          # {{ $colors.warning }} - Yellow warning
+        error = 203            # {{ $colors.error }} - Red error
+        success = 121          # {{ $colors.success }} - Mint success
+        
+        # Wireframe/border
+        border_wire = 240      # {{ $colors.border }} - Subtle wireframe
+        
+        # Default: chrome text on void background
+        fg, bg, attr = fg_chrome, default_colors[1], normal
+        
+        # RESET: Return to defaults
+        if context.reset:
+            return default_colors
+        
+        # ===================================================================
+        # BROWSER CONTEXT - Main file browser
+        # ===================================================================
+        elif context.in_browser:
+            
+            # SELECTION: Reverse video with pink tint
+            if context.selected:
+                attr = reverse
+                fg = pink_bright
+            
+            # EMPTY/ERROR: Hot pink on dark
+            if context.empty or context.error:
+                fg = error
+                bg = surface0
+            
+            # BORDERS: Wireframe aesthetic
+            if context.border:
+                fg = border_wire
+            
+            # MEDIA FILES: Neon accents
+            if context.media:
+                if context.image:
+                    fg = pink_neon      # Images in hot pink
+                elif context.video:
+                    fg = pink_bright    # Video in bright pink
+                else:  # audio
+                    fg = cyan_accent    # Audio in cyan
+            
+            # CONTAINERS/ARCHIVES: Cyan wireframe
+            if context.container:
+                fg = cyan_accent
+                attr |= bold
+            
+            # DIRECTORIES: Bright chrome with bold
+            if context.directory:
+                attr |= bold
+                fg = fg_bright
+            
+            # EXECUTABLES: Success color
+            elif context.executable and not \
+                    any((context.media, context.container,
+                         context.fifo, context.socket)):
+                attr |= bold
+                fg = success
+            
+            # SPECIAL FILES: Various neon accents
+            if context.socket:
+                attr |= bold
+                fg = pink_neon
+            
+            if context.fifo:
+                attr |= bold  
+                fg = warning
+            
+            if context.device:
+                attr |= bold
+                fg = error
+            
+            # LINKS: Cyan like old terminal hyperlinks
+            if context.link:
+                fg = cyan_accent
+                if context.good:
+                    fg = cyan_accent
+                else:
+                    fg = pink_neon
+            
+            # TAGS: Hot pink marker
+            if context.tag_marker:
+                attr |= bold
+                if fg in (fg_chrome, fg_dim):
+                    fg = pink_neon
+                else:
+                    fg = error
+            
+            # MARKED FILES: Bright pink
+            if context.marked:
+                attr |= bold
+                fg = pink_bright
+            
+            # BAD INFO: Dimmed out
+            if context.badinfo:
+                if attr & reverse:
+                    bg = surface0
+                else:
+                    fg = fg_dim
+            
+            # INACTIVE PANE: Dimmed chrome
+            if context.inactive_pane:
+                fg = fg_dim
+        
+        # ===================================================================
+        # TITLEBAR CONTEXT
+        # ===================================================================
+        elif context.in_titlebar:
+            
+            attr |= bold
+            
+            if context.hostname:
+                fg = error if context.bad else cyan_accent
+            elif context.directory:
+                fg = fg_bright
+            elif context.tab:
+                if context.good:
+                    bg = 53  # Dark magenta
+                    fg = pink_bright
+                else:
+                    fg = fg_dim
+            elif context.link:
+                fg = cyan_accent
+        
+        # ===================================================================
+        # STATUSBAR CONTEXT
+        # ===================================================================
+        elif context.in_statusbar:
+            
+            if context.permissions:
+                if context.good:
+                    fg = cyan_accent
+                elif context.bad:
+                    fg = pink_neon
+            
+            if context.marked:
+                attr |= bold
+                fg = pink_bright
+            
+            if context.message:
+                if context.bad:
+                    attr |= bold
+                    fg = error
+                elif context.good:
+                    fg = success
+            
+            if context.loaded:
+                fg = success
+            
+            if context.vcs:
+                if context.vcs_staged:
+                    fg = success
+                elif context.vcs_changed:
+                    fg = warning
+                elif context.vcs_untracked:
+                    fg = pink_neon
+                else:
+                    fg = cyan_accent
+        
+        # ===================================================================
+        # TASKVIEW CONTEXT
+        # ===================================================================
+        elif context.in_taskview:
+            
+            if context.title:
+                fg = pink_neon
+            
+            if context.selected:
+                attr = reverse
+            
+            if context.vcs:
+                fg = cyan_accent
+        
+        # ===================================================================
+        # PAGER CONTEXT
+        # ===================================================================
+        elif context.in_pager:
+            
+            fg = fg_chrome
+            
+            if context.line_number:
+                fg = fg_dim
+        
+        return fg, bg, attr

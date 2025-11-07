@@ -1,109 +1,466 @@
 {{- $c := include (joinPath .chezmoi.sourceDir "dot_config/colors/chrome-pulse-pink.yaml") | fromYaml -}}
-/* Wofi Chrome-Pulse-Pink theme
-   Generated via ChezMoi
-*/
+/*
+ * Chrome Pulse Pink - Wofi Style
+ * Y2K Retrofuturism Aesthetic
+ * Generated via chezmoi from chrome-pulse-pink.yaml
+ *
+ * Aesthetic Elements:
+ * - Hot pink neon glow borders
+ * - CRT scanline effect
+ * - Glass/chrome transparency
+ * - Glossy Y2K gradients
+ * - Smooth animations
+ */
 
+/* ============================================
+   WINDOW - Main container
+   ============================================ */
 window {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
-  background: transparent; /* prevents rectangular base */
-  box-shadow: none;
-  border: 0px solid {{ $c.colors.border }};
-  border-radius: 12px;
-  color: {{ $c.colors.fg }};
+    font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    
+    /* Transparent base allows for custom backgrounds */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    
+    /* Y2K rounded corners */
+    border-radius: 16px;
+    
+    /* Main text color */
+    color: {{ $c.colors.fg }};
 }
 
+/* ============================================
+   OUTER BOX - Main window background
+   ============================================ */
 #outer-box {
-    background-color: rgba(20, 20, 20, 0.95); /* main window bg */
-    border-radius: 14px;
-    padding: 10px;
-    overflow: hidden; /* hides all child overflow (important!) */
+    /* Deep void background with slight transparency for depth */
+    background-color: rgba(11, 12, 16, 0.96);
+    
+    /* Y2K aesthetic: Generous rounding */
+    border-radius: 16px;
+    
+    /* Hot pink neon border */
+    border: 2px solid {{ $c.colors.accent }};
+    
+    /* Internal padding */
+    padding: 16px;
+    
+    /* Hide overflow to respect rounded corners */
+    overflow: hidden;
+    
+    /* Allow absolute positioning for effects */
     position: relative;
+    
+    /* CRT glow shadow - pink neon emanating outward */
+    box-shadow: 
+        0 0 20px rgba(255, 51, 204, 0.4),
+        0 0 40px rgba(255, 51, 204, 0.2),
+        0 8px 32px rgba(5, 5, 6, 0.8);
 }
 
-/* inner glow effect that respects rounded corners */
+/* Inner glow effect - creates depth inside the window */
+#outer-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    
+    /* Soft pink glow from inside */
+    box-shadow: 
+        inset 0 0 40px rgba(255, 51, 204, 0.1),
+        inset 0 0 20px rgba(255, 102, 224, 0.05);
+    
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* CRT scanline effect - Y2K analog aesthetic */
 #outer-box::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    box-shadow: 0 0 25px 6px rgba(255, 105, 180, 0.5);
+    
+    /* Horizontal scanlines like old CRT monitors */
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.02) 0px,
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    
     pointer-events: none;
-    z-index: -1;
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+    z-index: 10;
 }
 
-
+/* ============================================
+   INPUT - Search box
+   ============================================ */
 #input {
-  margin-bottom: 8px;
-  padding: 6px 10px;
-  background-color: {{ $c.colors.surface1 }};
-  border: 0px solid {{ $c.colors.border }};
-  border-radius: 8px;
-  color: {{ $c.colors.fg }};
-  caret-color: {{ $c.colors.accent }};
-  box-shadow: 0 0 6px {{ $c.colors.shadow }};
+    /* Positioning */
+    margin: 0 0 12px 0;
+    padding: 10px 14px;
+    
+    /* Y2K surface layer */
+    background-color: {{ $c.colors.surface1 }};
+    
+    /* Subtle wireframe border */
+    border: 2px solid {{ $c.colors.border }};
+    border-radius: 10px;
+    
+    /* Text styling */
+    color: {{ $c.colors.fg }};
+    font-size: 14px;
+    font-weight: 500;
+    
+    /* Hot pink caret for that neon cursor aesthetic */
+    caret-color: {{ $c.colors.accent }};
+    
+    /* Subtle shadow for depth */
+    box-shadow: 
+        0 2px 8px rgba(5, 5, 6, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    
+    /* Smooth transitions */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Input focus state - hot pink glow */
 #input:focus {
-  outline: none;
-  border-color: {{ $c.colors.accent }};
-  box-shadow: 0 0 6{{ $c.colors.accent }};
+    outline: none;
+    
+    /* Hot pink border when active */
+    border-color: {{ $c.colors.accent }};
+    
+    /* Neon glow effect */
+    box-shadow: 
+        0 0 12px rgba(255, 51, 204, 0.4),
+        0 0 24px rgba(255, 51, 204, 0.2),
+        0 2px 8px rgba(5, 5, 6, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* Slight scale for emphasis */
+    transform: scale(1.01);
 }
 
+/* Input placeholder text */
+#input::placeholder {
+    color: {{ $c.colors.fg_dim }};
+    opacity: 0.6;
+}
+
+/* ============================================
+   SCROLL - Scrollable container
+   ============================================ */
 #scroll {
-  margin-top: 4px;
-  background: none;
+    margin-top: 4px;
+    background: transparent;
+    border: none;
 }
 
-#entry {
-  padding: 6px 10px;
-  margin: 2px 0;
-  border-radius: 8px;
-  color: {{ $c.colors.fg_dim }};
-  background-color: transparent;
-  transition: all 0.1s ease-in-out;
+/* Scrollbar styling (in case hide_scroll=false) */
+scrollbar {
+    background: transparent;
+    border: none;
 }
 
-#entry:selected {
-  background-color: {{ $c.colors.accent }};
-  color: {{ $c.colors.bg }};
+scrollbar slider {
+    background: {{ $c.colors.surface1 }};
+    border: 1px solid {{ $c.colors.border }};
+    border-radius: 8px;
+    min-width: 8px;
+    min-height: 40px;
 }
 
-#entry:hover {
-  background-color: {{ $c.colors.surface1 }};
-  color: {{ $c.colors.fg }};
-  box-shadow: inset 0 0 4px {{ $c.colors.accent_alt }};
+scrollbar slider:hover {
+    background: {{ $c.colors.accent }};
 }
 
-#img {
-  margin-right: 8px;
-  opacity: 0.9;
+/* ============================================
+   INNER BOX - Container for entries
+   ============================================ */
+#inner-box {
+    background: transparent;
+    padding: 4px;
+    
+    /* Ensure proper z-index */
+    position: relative;
+    z-index: 1;
 }
 
+/* ============================================
+   TEXT - Entry labels
+   ============================================ */
 #text {
-  font-weight: 500;
+    font-weight: 500;
+    color: {{ $c.colors.fg }};
+    padding: 2px 4px;
 }
 
+/* Text in selected entry - inverted for contrast */
 #text:selected {
-  color: {{ $c.colors.bg }};
+    color: {{ $c.colors.bg }};
+    font-weight: 600;
 }
 
-/* optional faint scanline effect for the Y2K aesthetic */
-window::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.03) 0,
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 2px,
-    transparent 4px
-  );
-  pointer-events: none;
-  mix-blend-mode: overlay;
+/* ============================================
+   IMG - Application icons
+   ============================================ */
+#img {
+    margin-right: 10px;
+    opacity: 0.9;
+    
+    /* Smooth icon transitions */
+    transition: all 0.2s ease;
 }
 
+/* Icon glow on hover */
+#entry:hover #img {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(255, 51, 204, 0.3));
+}
+
+/* Icon on selected entry */
+#entry:selected #img {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(11, 12, 16, 0.8));
+}
+
+/* ============================================
+   ENTRY - Application list items
+   ============================================ */
+#entry {
+    /* Spacing */
+    padding: 8px 12px;
+    margin: 3px 0;
+    
+    /* Y2K rounded corners */
+    border-radius: 10px;
+    
+    /* Default state - slightly dimmed */
+    color: {{ $c.colors.fg_dim }};
+    background-color: transparent;
+    border: 2px solid transparent;
+    
+    /* Smooth transitions for all states */
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Ensure text doesn't wrap */
+    overflow: hidden;
+}
+
+/* Entry hover state - surface highlight */
+#entry:hover {
+    background-color: {{ $c.colors.surface1 }};
+    color: {{ $c.colors.fg }};
+    border-color: {{ $c.colors.border }};
+    
+    /* Subtle inner glow */
+    box-shadow: 
+        inset 0 0 12px rgba(255, 102, 224, 0.1),
+        0 2px 8px rgba(5, 5, 6, 0.3);
+    
+    /* Slight scale for depth */
+    transform: translateX(4px) scale(1.01);
+}
+
+/* Entry selected state - HOT PINK EXPLOSION */
+#entry:selected {
+    /* Hot pink background - Y2K neon energy */
+    background: linear-gradient(
+        135deg,
+        {{ $c.colors.accent }} 0%,
+        {{ $c.colors.accent_alt }} 100%
+    );
+    
+    /* Text inverted for contrast */
+    color: {{ $c.colors.bg }};
+    
+    /* Bright border */
+    border-color: {{ $c.colors.accent_alt }};
+    
+    /* MAXIMUM neon glow effect */
+    box-shadow: 
+        0 0 16px rgba(255, 51, 204, 0.6),
+        0 0 32px rgba(255, 51, 204, 0.3),
+        0 4px 16px rgba(5, 5, 6, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    
+    /* Pop forward */
+    transform: translateX(6px) scale(1.02);
+}
+
+/* Entry active/click state */
+#entry:active {
+    transform: translateX(6px) scale(0.98);
+    transition: all 0.05s ease;
+}
+
+/* ============================================
+   UNSELECTED / SELECTED IDs
+   (Wofi-specific state identifiers)
+   ============================================ */
+#unselected {
+    background: transparent;
+}
+
+#selected {
+    /* Already styled above via #entry:selected */
+}
+
+/* ============================================
+   EXPANDER - Multi-action indicator
+   ============================================ */
+#expander {
+    background: transparent;
+    color: {{ $c.colors.fg_dim }};
+}
+
+#expander:hover {
+    color: {{ $c.colors.accent }};
+}
+
+/* ============================================
+   NO RESULTS MESSAGE
+   ============================================ */
+#input:invalid {
+    /* Subtle error indication */
+    border-color: {{ $c.colors.error }};
+    box-shadow: 
+        0 0 8px rgba(255, 51, 102, 0.3),
+        0 2px 8px rgba(5, 5, 6, 0.4);
+}
+
+/* ============================================
+   ADDITIONAL Y2K AESTHETIC TOUCHES
+   ============================================ */
+
+/* Glossy shine effect on outer box */
+#outer-box::after {
+    /* Override previous scanline */
+    background: 
+        /* Scanlines */
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.02) 0px,
+            rgba(255, 255, 255, 0.02) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        /* Top glossy highlight */
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 30%,
+            transparent 100%
+        );
+    
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.6;
+    z-index: 10;
+}
+
+/* Subtle pulsing animation on window (optional, can be disabled) */
+@keyframes neon-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px rgba(255, 51, 204, 0.4),
+            0 0 40px rgba(255, 51, 204, 0.2),
+            0 8px 32px rgba(5, 5, 6, 0.8);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px rgba(255, 51, 204, 0.5),
+            0 0 60px rgba(255, 51, 204, 0.3),
+            0 8px 32px rgba(5, 5, 6, 0.8);
+    }
+}
+
+/* Apply subtle pulse to outer box (OPTIONAL - comment out if too much) */
+#outer-box {
+    animation: neon-pulse 4s ease-in-out infinite;
+}
+
+/* Chrome reflection effect on selected entries */
+#entry:selected::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    
+    /* Glossy chrome reflection */
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 100%
+    );
+    
+    border-radius: 10px 10px 0 0;
+    pointer-events: none;
+}
+
+/* ============================================
+   PERFORMANCE & COMPATIBILITY
+   ============================================ */
+
+/* Hardware acceleration hints */
+window,
+#outer-box,
+#entry {
+    will-change: transform, opacity, box-shadow;
+}
+
+/* Ensure smooth rendering */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+/* If window is smaller, reduce padding */
+@media (max-height: 500px) {
+    #outer-box {
+        padding: 12px;
+    }
+    
+    #entry {
+        padding: 6px 10px;
+        margin: 2px 0;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Ensure sufficient contrast */
+#text {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#entry:selected #text {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Focus indicators for keyboard navigation */
+#entry:focus {
+    outline: 2px solid {{ $c.colors.accent }};
+    outline-offset: 2px;
+}
+
+/* ============================================
+   END OF CHROME PULSE PINK WOFI THEME
+   ============================================ */

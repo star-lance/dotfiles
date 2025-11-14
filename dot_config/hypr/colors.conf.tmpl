@@ -1,32 +1,17 @@
-# Chrome Pulse Pink - Hyprland Colors
-# Templated by chezmoi from chrome-pulse-pink.yaml
-# Y2K Retrofuturism Aesthetic
 {{- $colors := .colors -}}
-
-# Background colors - Deep void aesthetic
 $bg = rgb({{ trimPrefix "#" $colors.bg }})
 $surface0 = rgb({{ trimPrefix "#" $colors.surface0 }})
 $surface1 = rgb({{ trimPrefix "#" $colors.surface1 }})
 $shadow = rgba({{ trimPrefix "#" $colors.shadow }}ee)
-
-# Foreground colors - Chrome finish
 $fg = rgb({{ trimPrefix "#" $colors.fg }})
 $fg_dim = rgb({{ trimPrefix "#" $colors.fg_dim }})
 $fg_alt = rgb({{ trimPrefix "#" $colors.fg_alt }})
-
-# Accent colors - Hot pink neon
 $accent = rgba({{ trimPrefix "#" $colors.accent }}ee)
 $accent_alt = rgba({{ trimPrefix "#" $colors.accent_alt }}ee)
-
-# UI colors - Wireframe aesthetic
 $border = rgba({{ trimPrefix "#" $colors.border }}aa)
 $highlight = rgb({{ trimPrefix "#" $colors.highlight }})
-
-# Status colors - Visual feedback
 $warning = rgb({{ trimPrefix "#" $colors.warning }})
 $error = rgb({{ trimPrefix "#" $colors.error }})
 $success = rgb({{ trimPrefix "#" $colors.success }})
-
-# Additional colors for Y2K aesthetic
-$cyan_accent = rgba(00FFFFaa)  # Wireframe/technical accent
-$pink_glow = rgba({{ trimPrefix "#" $colors.accent }}44)  # Soft pink glow for effects
+$cyan_accent = rgba(00FFFFaa)
+$pink_glow = rgba({{ trimPrefix "#" $colors.accent }}44)
